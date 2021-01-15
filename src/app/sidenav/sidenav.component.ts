@@ -6,16 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit {
-  selected:string;
+  selected: string;
 
-  constructor() { 
-    this.selected = "";
+  constructor() {
+    this.selected = '';
   }
 
   ngOnInit(): void {
   }
 
-  setSelected(select:string) {
+  setSelected(select: string): any {
     this.selected = select;
   }
 }

@@ -14,8 +14,8 @@ import { AppBarComponent } from './app-bar/app-bar.component';
 import { HomeComponent } from './home/home.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
-import { AngularFireModule } from "@angular/fire";
-import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component';
@@ -30,8 +30,6 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
 
     BrowserModule,
     AppRoutingModule,
@@ -43,6 +41,7 @@ import { LoginComponent } from './login/login.component';
     MatSidenavModule
 
   ],
+  exports: [AngularFireModule, AngularFireAuthModule],
   providers: [],
   bootstrap: [AppComponent]
 })

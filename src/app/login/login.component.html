@@ -1,3 +1,12 @@
 <div>
-    <button (click)="authService.loginGoogle()">Click</button>
+    <button (click)="authService.loginGoogle()">Login with Google</button>
+    <button (click)="authService.logout()">Logout</button>
+</div>
+
+<div *ngIf="authService.user$ | async as user">
+    <pre>
+        {{ user | json}}
+    </pre>
+
+    <img src="{{user.photoURL}}" alt="">
 </div>
