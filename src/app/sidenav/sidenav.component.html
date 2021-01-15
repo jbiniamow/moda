@@ -1,0 +1,23 @@
+<div>
+  <mat-drawer-container class="navigation-rail-page" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side" opened>
+      <button routerLink="/home" mat-icon-button class="nav-button" [ngClass]="{ selected: selected === 'Home' }"
+        (click)="setSelected('Home')">
+        <mat-icon class="nav-icon">home</mat-icon>
+        <div class="nav-button-text">Home</div>
+      </button>
+      <button routerLink="/closet" mat-icon-button class="nav-button" [ngClass]="{ selected: selected === 'Closet' }"
+        (click)="setSelected('Closet')">
+        <mat-icon class="nav-icon">checkroom</mat-icon>
+        <div class="nav-button-text">Closet</div>
+      </button>
+      <button routerLink="/favorites" mat-icon-button class="nav-button"
+        [ngClass]="{ selected: selected === 'Favorites' }" (click)="setSelected('Favorites')">
+        <mat-icon class="nav-icon">favorite</mat-icon>
+        <div class="nav-button-text">Favorites</div>
+      </button>
+    </mat-drawer>
+    <div class="example-sidenav-content">
+    </div>
+  </mat-drawer-container>
+</div>
