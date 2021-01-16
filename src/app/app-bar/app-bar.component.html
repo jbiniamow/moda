@@ -1,14 +1,25 @@
-<mat-toolbar>
-  <span>{{username}}</span>
-  <!-- <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button> -->
+<mat-toolbar *ngIf="authService.user$ | async as user">
   <span>MODA</span>
   <span class="spacer"></span>
-  <button mat-icon-button>
-    <mat-icon>settings</mat-icon>
+  <button mat-button [matMenuTriggerFor]="menu">
+    <img class="profilePic" src="{{user.photoURL}}" alt="">
   </button>
-  <button mat-icon-button>
-    <mat-icon>info</mat-icon>
-  </button>
+  <mat-menu #menu="matMenu">
+    <span><b>{{user.displayName}}</b></span>
+    <span>{{user.email}}</span>
+    <mat-divider></mat-divider>
+    <button mat-menu-item>
+      <mat-icon>settings</mat-icon>
+      Settings
+    </button>
+    <button mat-menu-item>
+      <mat-icon>help</mat-icon>
+      Help
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="authService.logout()">
+      <mat-icon>logout</mat-icon>
+      Logout
+    </button>
+  </mat-menu>
 </mat-toolbar>

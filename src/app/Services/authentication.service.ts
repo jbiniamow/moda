@@ -40,7 +40,7 @@ export class AuthenticationService {
 
   async logout(): Promise<boolean> {
     await this.afAuth.signOut();
-    return this.router.navigate(['/']);
+    return this.router.navigate(['/login']);
   }
 
   private updateUserData(user: any): any {
@@ -52,7 +52,7 @@ export class AuthenticationService {
       displayName: user.displayName,
       photoURL: user.photoURL
     };
-
+    this.router.navigate(['/home']);
     return userRef.set(data, { merge: true });
   }
 

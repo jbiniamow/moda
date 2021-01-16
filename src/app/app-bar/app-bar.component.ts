@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import firebase from 'firebase';
+import { AuthenticationService } from '../Services/authentication.service';
 
 @Component({
   selector: 'app-app-bar',
@@ -8,7 +9,7 @@ import firebase from 'firebase';
 })
 export class AppBarComponent implements OnInit {
   username: any;
-  constructor() { }
+  constructor(public authService: AuthenticationService) { }
 
   ngOnInit(): void {
   }

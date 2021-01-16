@@ -9,6 +9,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatMenuModule} from '@angular/material/menu';
 
 import { AppBarComponent } from './app-bar/app-bar.component';
 import { HomeComponent } from './home/home.component';
@@ -19,6 +20,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component';
+import {MatDividerModule} from '@angular/material/divider';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +40,9 @@ import { LoginComponent } from './login/login.component';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatMenuModule,
+    MatDividerModule
 
   ],
   exports: [AngularFireModule, AngularFireAuthModule],
