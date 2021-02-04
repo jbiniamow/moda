@@ -1,8 +1,41 @@
-.bottom-nav {
-    height: 56px;
-    width: 100%;
-    bottom: 0px;
-    position: fixed;
-    text-align: center;
-    background-color: #D8CE40;
+.mat-elevation-z6 {
+    min-height: 55px;
 }
+
+button {
+    width: 33.3%;
+    border: none;
+    background: none;
+}
+
+.nav-button {
+    border-radius: 0;
+    font-size: 12px;
+    min-height: 55px;
+    position: relative;
+    float: left;
+}
+
+span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 4px;
+    margin: auto;
+    text-transform: capitalize;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    min-height: 55px;
+    background-color: white;
+    z-index: 9999;
+}
+
+.selected {
+    color: #003399;
+  }

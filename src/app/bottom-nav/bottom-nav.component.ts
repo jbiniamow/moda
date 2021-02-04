@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./bottom-nav.component.scss']
 })
 export class BottomNavComponent implements OnInit {
+  selected: string;
 
-  constructor() { }
+  constructor() {
+    this.selected = '';
+  }
 
   ngOnInit(): void {
+  }
+
+  setSelected(select: string): any {
+    this.selected = select;
   }
 
 }

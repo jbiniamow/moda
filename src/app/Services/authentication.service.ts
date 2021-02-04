@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import { switchMap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { User } from '../interfaces/user.model';
 
 @Injectable({
@@ -15,6 +15,7 @@ export class AuthenticationService {
   return = '';
   error: any;
   user$: Observable<any>;
+  currentUser: any;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -24,6 +25,7 @@ export class AuthenticationService {
     this.user$ = this.afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
+          this.currentUser = user;
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           return of(null);
@@ -34,12 +36,15 @@ export class AuthenticationService {
 
   async loginGoogle(): Promise<void> {
     const provider = new firebase.auth.GoogleAuthProvider();
+    provider.setCustomParameters({
+      prompt: 'select_account'
+    });
     const credential = await this.afAuth.signInWithPopup(provider);
     return this.updateUserData(credential.user);
   }
 
   async logout(): Promise<boolean> {
-    await this.afAuth.signOut();
+    this.afAuth.signOut();
     return this.router.navigate(['/login']);
   }
 

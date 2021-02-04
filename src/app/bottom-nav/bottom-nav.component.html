@@ -1,14 +1,21 @@
-<div class="bottom-nav">
-  <button mat-icon-button> 
-    <mat-icon class="nav-icon">home</mat-icon>
-    <div class="nav-button-text">Home</div>
-  </button>
-  <button mat-icon-button>
-    <mat-icon class="nav-icon">checkroom</mat-icon>
-    <div class="nav-button-text">Closet</div>
-  </button>
-  <button mat-icon-button>
-    <mat-icon class="nav-icon">favorite</mat-icon>
-    <div class="nav-button-text">Favorites</div>
-  </button>
+<div class="footer">
+  <footer>
+    <nav class="mat-elevation-z6">
+      <button class="nav-button" routerLink="/home" [ngClass]="{ selected: selected === 'Home' }"
+      (click)="setSelected('Home')">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </button>
+      <button class="nav-button" routerLink="/closet" [ngClass]="{ selected: selected === 'Closet'}"
+      (click)="setSelected('Closet')">
+        <mat-icon>checkroom</mat-icon>
+        <span>Closet</span>
+      </button>
+      <button class="nav-button" routerLink="/favorites" [ngClass]="{ selected: selected === 'Favorites'}"
+      (click)="setSelected('Favorites')">
+        <mat-icon>favorite</mat-icon>
+        <span>Favorites</span>
+      </button>
+    </nav>
+  </footer>
 </div>

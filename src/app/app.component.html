@@ -1,5 +1,6 @@
 <app-app-bar *ngIf="router.url != '/login'"></app-app-bar>
 <div id="content">
-  <!-- <app-home *ngIf="router.url != '/login'"></app-home> -->
+  <app-sidenav *ngIf="router.url != '/login'"></app-sidenav>
+  <app-bottom-nav *ngIf="router.url != '/login'"></app-bottom-nav>
   <router-outlet></router-outlet>
 </div>
