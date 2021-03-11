@@ -3,6 +3,11 @@ mat-toolbar {
   color: black;
 }
 
+a {
+  text-decoration: none;
+  color: black;
+}
+
 .spacer {
   flex: 1 1 auto;
 }
@@ -16,4 +21,58 @@ mat-toolbar {
 span {
   display: block;
   margin: 12px;
+}
+
+@media only screen and (max-width: 808px) {
+  .appname {
+    display: none;
+  }
+}
+
+.searchForm {
+  margin-left: 0; 
+  margin-right: 0; 
+  background: rgba(241,243,244,0.24); 
+  border-radius: 8px; max-width: 720px; 
+  position: relative; display: block; 
+  margin-top: 0em;
+}
+
+.searchContainer {
+  max-width: 100%; 
+  flex: 1 1 auto; 
+  height: 48px; 
+  display: block; 
+  width: 100%; 
+  white-space: nowrap;
+}
+
+.searchInput {
+  padding: 11px 0; 
+  padding-right: 56px; 
+  background: transparent; 
+  border: none; 
+  width: 100%; 
+  outline: none; 
+  font: normal 16px Google Sans,Roboto; 
+  height: 46px; 
+  box-sizing: border-box;
+}
+
+.searchForm:focus-within {
+  background: white;
+}
+
+.clearButton {
+  padding: 0 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  visibility: visible;
+}
+
+.mat-icon-button:hover {
+  opacity: 0.87;
+  background-color: rgba(154, 160, 166, 0.157);
 }

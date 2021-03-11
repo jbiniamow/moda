@@ -42,7 +42,7 @@ export class SpeedDialFabComponent implements OnInit {
 
   public onButtonClick(btn: any) {
     if (btn.action) {
-      return btn.action();
+      return btn.action(btn.name);
     }
   }
 

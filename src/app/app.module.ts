@@ -14,6 +14,14 @@ import {MatTab, MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatStepperModule} from '@angular/material/stepper';
 
 import { AppBarComponent } from './app-bar/app-bar.component';
 import { HomeComponent } from './home/home.component';
@@ -26,9 +34,12 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component';
 import {MatDividerModule} from '@angular/material/divider';
-import { ClosetComponent } from './closet/closet.component';
+import { ClosetAddDialog, ClosetComponent } from './closet/closet.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { SpeedDialFabComponent } from './speed-dial-fab/speed-dial-fab.component';
+import { AuthenticationService } from './Services/authentication.service';
+import { ClothingTypePipe } from '../pipes/clothing-type.pipe';
+import {AppBarAboutDialog} from './app-bar/app-bar.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +52,9 @@ import { SpeedDialFabComponent } from './speed-dial-fab/speed-dial-fab.component
     ClosetComponent,
     FavoritesComponent,
     SpeedDialFabComponent,
+    ClothingTypePipe,
+    AppBarAboutDialog,
+    ClosetAddDialog
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -61,10 +75,17 @@ import { SpeedDialFabComponent } from './speed-dial-fab/speed-dial-fab.component
     MatTooltipModule,
     MatCardModule,
     MatGridListModule,
-
+    FlexLayoutModule,
+    MatSnackBarModule,
+    MatChipsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatDialogModule,
+    MatStepperModule
   ],
   exports: [AngularFireModule, AngularFireAuthModule],
-  providers: [],
+  providers: [AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

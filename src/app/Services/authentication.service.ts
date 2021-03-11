@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
@@ -44,7 +44,7 @@ export class AuthenticationService {
   }
 
   async logout(): Promise<boolean> {
-    this.afAuth.signOut();
+    await this.afAuth.signOut();
     return this.router.navigate(['/login']);
   }
 

@@ -1,5 +1,24 @@
 <mat-toolbar *ngIf="authService.user$ | async as user">
-  <span>MODA</span>
+  <span style="padding-right: 30px;" class="appname">
+    <a href="/#home">
+      MODA
+    </a>
+  </span>
+
+  <div class="searchContainer">
+    <form class="searchForm">
+      <button mat-icon-button type="button" matTooltip="Search">
+        <mat-icon>search</mat-icon>
+      </button>
+        <input class="searchInput" type="text" placeholder="Search" (click)="toggleSearch = true" [(ngModel)]="searchText" name="search">
+        <button mat-icon-button class="clearButton" type="button" *ngIf="toggleSearch" (click)="clearSearch()" matTooltip="Clear search">
+          <mat-icon>clear</mat-icon>
+        </button>
+    </form>
+  </div>
+
+  
+
   <span class="spacer"></span>
   <button mat-button [matMenuTriggerFor]="menu">
     <img class="profilePic" src="{{user.photoURL}}" alt="">
@@ -9,12 +28,12 @@
     <span>{{user.email}}</span>
     <mat-divider></mat-divider>
     <button mat-menu-item>
-      <mat-icon>settings</mat-icon>
-      Settings
-    </button>
-    <button mat-menu-item>
       <mat-icon>help</mat-icon>
       Help
+    </button>
+    <button mat-menu-item (click)="openAboutDialog()">
+      <mat-icon>info</mat-icon>
+      About
     </button>
     <mat-divider></mat-divider>
     <button mat-menu-item (click)="authService.logout()">

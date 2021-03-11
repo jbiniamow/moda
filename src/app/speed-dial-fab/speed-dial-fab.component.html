@@ -7,7 +7,7 @@
   </button>
 
   <div [@speedDialStagger]="buttons.length">
-    <button *ngFor="let btn of buttons"  matTooltip="{{btn.name}}" mat-mini-fab class="fab-secondary" (click)="onButtonClick(btn)">
+    <button *ngFor="let btn of buttons"  matTooltip="{{btn.name}}" mat-mini-fab class="fab-secondary" (click)="onButtonClick(btn)" id="{{btn.name}}">
       <img width="24" height="24" src="{{btn.icon}}" alt="">
     </button>
   </div>

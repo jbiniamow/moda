@@ -1,4 +1,3 @@
-<!-- <button (click)="authService.logout()">Logout</button> -->
 <body class="moda-login">
   <section class="header">
     <svg class="moda-logo" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24" viewBox="0 0 24 24"
@@ -10,13 +9,6 @@
       </g>
     </svg>
     <h1>MODA</h1>
-    <!-- <div *ngIf="authService.user$ | async as user">
-    <pre>
-              {{ user | json}}
-          </pre>
-
-    <img src="{{user.photoURL}}" alt="">
-  </div> -->
     <div class="buttons">
       <button id="signUp" mat-raised-button (click)="authService.loginGoogle()">SIGN UP WITH GOOGLE</button>
     </div>

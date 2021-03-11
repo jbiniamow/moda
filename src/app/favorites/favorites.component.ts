@@ -12,4 +12,7 @@ export class FavoritesComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  combinations = [
+    {top: '../../assets/clothing/Tops/t-shirt.png', bottom: '../../assets/clothing/Bottoms/pants.png', outerwear: '../../assets/clothing/Outerwear/hoodie.png', footwear:'../../assets/clothing/Footwear/low-top-canvas-sneakers.png'},
+  ]
 }

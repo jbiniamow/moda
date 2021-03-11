@@ -1,12 +1,56 @@
-<!-- <mat-tab-group mat-stretch-tabs>
+<mat-tab-group mat-stretch-tabs>
   <mat-tab label="Tops">
-    <mat-grid-list [cols]="breakpoint" (window:resize)="onResize($event)" rowHeight="1:1" gutterSize="12px" class="list">
-      <mat-grid-tile *ngFor="let top of closet" [ngStyle]="{'background': top.color}">
-        {{top.color}}
-      </mat-grid-tile>
-    </mat-grid-list>
+    <div class="content">
+      <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let top of filterTops(closet)">
+          <mat-card class="mat-elevation-z0">
+            <img mat-card-image src="/assets/clothing/Tops/{{top.type}}.png" [ngStyle]="{'background-color': top.color}">
+            <mat-card-content>
+              <h1>{{top.type}}</h1>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-icon-button matTooltip="Delete item" (click)="deleteClothing(top)">
+                <mat-icon>
+                  delete
+                </mat-icon>
+              </button>
+              <button mat-icon-button matTooltip="Change color">
+                <mat-icon>
+                  palette
+                </mat-icon>
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
   </mat-tab>
-  <mat-tab label="Bottoms"></mat-tab>
+  <mat-tab label="Bottoms">
+    <div class="content">
+      <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let bottom of filterBottoms(closet)">
+          <mat-card class="mat-elevation-z0">
+            <img mat-card-image src="/assets/clothing/Bottoms/{{bottom.type}}.png" [ngStyle]="{'background-color': bottom.color}">
+            <mat-card-content>
+              <h1>{{bottom.type}}</h1>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-icon-button matTooltip="Delete item" (click)="deleteClothing(bottom)">
+                <mat-icon>
+                  delete
+                </mat-icon>
+              </button>
+              <button mat-icon-button matTooltip="Change color">
+                <mat-icon>
+                  palette
+                </mat-icon>
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
   <mat-tab label="Outerwear"></mat-tab>
   <mat-tab label="Footwear"></mat-tab>
 </mat-tab-group>
@@ -18,5 +62,4 @@
   </section>
 </body>
 
-<app-speed-dial-fab class="fabAdd" [options]="FabOptions"></app-speed-dial-fab> -->
-<p>closet works!</p>
+<app-speed-dial-fab class="fabAdd" [options]="FabOptions"></app-speed-dial-fab>

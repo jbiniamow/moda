@@ -1,1 +1,44 @@
-<p>favorites works!</p>
+<!-- <div>
+  <body class="emptyFavorites">
+    <section class="header">
+      <img class="emptyFavoritesImage" src="/assets/undraw_loving_story_0j59.svg">
+      <h2>There's nothing here!</h2>
+      <h3>Start favoriting outfits</h3>
+    </section>
+  </body>
+</div> -->
+
+<div class="content">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let combo of combinations">
+      <mat-card>
+        <div class="container">
+          <div class="image">
+            <img [src]="combo.top">
+          </div>
+          <div class="image">
+            <img [src]="combo.outerwear">
+          </div>
+          <div class="image">
+            <img [src]="combo.bottom">
+          </div>
+          <div class="image">
+            <img [src]="combo.footwear">
+          </div>
+        </div>
+        <mat-card-actions>
+          <button mat-icon-button matTooltip="Delete outfit">
+            <mat-icon>
+              delete
+            </mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Favorite outfit">
+            <mat-icon style="color: red ;">
+              favorite
+            </mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</div>

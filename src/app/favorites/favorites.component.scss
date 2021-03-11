@@ -1,0 +1,37 @@
+.header {
+  text-align: center;
+}
+
+.emptyFavoritesImage {
+  width: 252.25px;
+  height: 197.47px;
+  padding-top: 120px;
+}
+
+
+mat-card {
+  border: 1px solid #e0e0e0;
+  // padding: 24px;
+}
+
+.content {
+  padding: 16px;
+}
+
+// .content > mat-card {
+//     width: 200px;
+// }
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.container .image {
+  width: 50%;
+}
+
+.container img {
+  width: calc(100% - (20px * 2));
+  margin: 20px;
+}
