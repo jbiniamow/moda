@@ -1,14 +1,14 @@
 <h2 mat-dialog-title>Select {{data.category}}</h2>
 <mat-dialog-content>
-  <mat-horizontal-stepper>
+  <mat-horizontal-stepper #stepper>
     <mat-step>
       <ng-template matStepLabel>
         Pick your clothing
       </ng-template>
       <div class="content" *ngIf="data.category === 'Tops'">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
-          <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let tops of topImages" fxLayoutAlign="stretch">
-            <mat-card>
+          <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let tops of topImages" fxLayoutAlign="stretch">
+            <mat-card class="dialogCard" (click)="selectItem(tops, stepper)">
               <img mat-card-image [src]="tops.path">
               <mat-card-content>
                 <h1>{{tops.displayName}}</h1>
@@ -19,9 +19,9 @@
       </div>
       <div class="content" *ngIf="data.category === 'Bottoms'">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
-          <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let bottoms of bottomImages"
+          <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let bottoms of bottomImages"
             fxLayoutAlign="stretch">
-            <mat-card>
+            <mat-card class="dialogCard" (click)="selectItem(bottoms, stepper)">
               <img mat-card-image [src]="bottoms.path">
               <mat-card-content>
                 <h1>{{bottoms.displayName}}</h1>
@@ -32,9 +32,9 @@
       </div>
       <div class="content" *ngIf="data.category === 'Outerwear'">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
-          <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let outerwear of outerwearImages"
+          <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let outerwear of outerwearImages"
             fxLayoutAlign="stretch">
-            <mat-card>
+            <mat-card class="dialogCard" (click)="selectItem(outerwear, stepper)">
               <img mat-card-image [src]="outerwear.path">
               <mat-card-content>
                 <h1>{{outerwear.displayName}}</h1>
@@ -45,9 +45,9 @@
       </div>
       <div class="content" *ngIf="data.category === 'Footwear'">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
-          <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let footwear of footwearImages"
+          <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let footwear of footwearImages"
             fxLayoutAlign="stretch">
-            <mat-card>
+            <mat-card class="dialogCard" (click)="selectItem(footwear, stepper)">
               <img mat-card-image [src]="footwear.path">
               <mat-card-content>
                 <h1>{{footwear.displayName}}</h1>
@@ -61,14 +61,22 @@
       <ng-template matStepLabel>
         Pick your color
       </ng-template>
-      <img width="500px" src="../../assets/clothing/Tops/t-shirt.png" style="max-width: 100%; height: auto; display: block;
-      margin: 0 auto;" [ngStyle]="{'background-color': chosenColor}">
-      <input type="color" [(ngModel)]="chosenColor">
+      <img width="400px" [src]="selectedItem.path" style="max-width: 100%; height: auto; display: block;
+      margin: 0 auto;" [ngStyle]="{'background-color': chosenColor.hex}">
+      <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div *ngFor="let color of colors" fxFlex="20%" fxFlex.xs="50%" fxFlex.sm="33%">
+          <div [ngStyle]="{'background-color': color.hex}" class="colors" (click)="chooseColor(color)">
+            <div class="colorNames">
+              {{color.displayName}}
+            </div>
+          </div>
+        </div>
+      </div>
     </mat-step>
   </mat-horizontal-stepper>
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Close</button>
-  <button mat-button cdkFocusInitial>Next</button>
+  <button *ngIf="(chosenColor | json) != '{}'" mat-button mat-dialog-close (click)="addClothing()">Save</button>
 </mat-dialog-actions>

@@ -5,21 +5,27 @@
     </a>
   </span>
 
-  <div class="searchContainer">
+  <!-- <div class="searchContainer">
     <form class="searchForm">
       <button mat-icon-button type="button" matTooltip="Search">
         <mat-icon>search</mat-icon>
       </button>
-        <input class="searchInput" type="text" placeholder="Search" (click)="toggleSearch = true" [(ngModel)]="searchText" name="search">
-        <button mat-icon-button class="clearButton" type="button" *ngIf="toggleSearch" (click)="clearSearch()" matTooltip="Clear search">
+        <input class="searchInput" type="text" placeholder="Search" (click)="toggleFilter()" [(ngModel)]="searchText" name="search">
+        <button mat-icon-button class="clearButton" type="button" *ngIf="filterVisible" (click)="clearSearch()" matTooltip="Clear search">
           <mat-icon>clear</mat-icon>
         </button>
     </form>
-  </div>
+  </div> -->
 
-  
+
 
   <span class="spacer"></span>
+  <!-- <button mat-icon-button (click)="toggleFilter()"> -->
+  <button mat-icon-button (click)="inputSideNav.toggle()">
+    <mat-icon>
+      filter_list
+    </mat-icon>
+  </button>
   <button mat-button [matMenuTriggerFor]="menu">
     <img class="profilePic" src="{{user.photoURL}}" alt="">
   </button>

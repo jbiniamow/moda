@@ -14,11 +14,14 @@ export class ClothingService {
     return this.firestore.collection('users').doc(currentUser).collection('clothing').add(clothing);
   }
 
-  updateClothing(data: any) {
+  updateClothing(clothing:any, color: any) {
+    var currentUser = this.afAuth.currentUser.uid;
     return this.firestore
-    .collection("clothing")
-    .doc(data.payload.doc.id)
-    .set({ completed: true}, {merge: true });
+    .collection("users")
+    .doc(currentUser)
+    .collection('clothing')
+    .doc(clothing.id)
+    .set({ colorHex: color.hex, colorName: color.displayName}, {merge: true });
   }
 
   getClothing() {

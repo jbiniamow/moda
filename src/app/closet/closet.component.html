@@ -4,9 +4,10 @@
       <div fxLayout="row wrap" fxLayoutGap="16px grid">
         <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let top of filterTops(closet)">
           <mat-card class="mat-elevation-z0">
-            <img mat-card-image src="/assets/clothing/Tops/{{top.type}}.png" [ngStyle]="{'background-color': top.color}">
+            <img mat-card-image src="/assets/clothing/Tops/{{top.fileName}}.png"
+              [ngStyle]="{'background-color': top.colorHex}">
             <mat-card-content>
-              <h1>{{top.type}}</h1>
+              <h1>{{top.colorName}} {{top.displayName}}</h1>
             </mat-card-content>
             <mat-card-actions>
               <button mat-icon-button matTooltip="Delete item" (click)="deleteClothing(top)">
@@ -14,11 +15,22 @@
                   delete
                 </mat-icon>
               </button>
-              <button mat-icon-button matTooltip="Change color">
+              <button mat-icon-button matTooltip="Change color" [matMenuTriggerFor]="colorMenu">
                 <mat-icon>
                   palette
                 </mat-icon>
               </button>
+              <mat-menu #colorMenu="matMenu">
+                <div class="colorMenuWrapper" fxLayout="row wrap" fxLayoutGap="12px grid">
+                  <div fxFlex="33%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let color of colors">
+                    <div class="colors" [ngStyle]="{'background-color': color.hex}" (click)="updateClothingColor(top,color)">
+                      <div class="colorNames">
+                        {{color.displayName}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-menu>
             </mat-card-actions>
           </mat-card>
         </div>
@@ -30,9 +42,10 @@
       <div fxLayout="row wrap" fxLayoutGap="16px grid">
         <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let bottom of filterBottoms(closet)">
           <mat-card class="mat-elevation-z0">
-            <img mat-card-image src="/assets/clothing/Bottoms/{{bottom.type}}.png" [ngStyle]="{'background-color': bottom.color}">
+            <img mat-card-image src="/assets/clothing/Bottoms/{{bottom.fileName}}.png"
+              [ngStyle]="{'background-color': bottom.colorHex}">
             <mat-card-content>
-              <h1>{{bottom.type}}</h1>
+              <h1>{{bottom.colorName}} {{bottom.displayName}}</h1>
             </mat-card-content>
             <mat-card-actions>
               <button mat-icon-button matTooltip="Delete item" (click)="deleteClothing(bottom)">
@@ -40,19 +53,104 @@
                   delete
                 </mat-icon>
               </button>
-              <button mat-icon-button matTooltip="Change color">
+              <button mat-icon-button matTooltip="Change color" [matMenuTriggerFor]="colorMenu">
                 <mat-icon>
                   palette
                 </mat-icon>
               </button>
+              <mat-menu #colorMenu="matMenu">
+                <div class="colorMenuWrapper" fxLayout="row wrap" fxLayoutGap="12px grid">
+                  <div fxFlex="33%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let color of colors">
+                    <div class="colors" [ngStyle]="{'background-color': color.hex}" (click)="updateClothingColor(bottom,color)">
+                      <div class="colorNames">
+                        {{color.displayName}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-menu>
             </mat-card-actions>
           </mat-card>
         </div>
       </div>
     </div>
   </mat-tab>
-  <mat-tab label="Outerwear"></mat-tab>
-  <mat-tab label="Footwear"></mat-tab>
+  <mat-tab label="Outerwear">
+    <div class="content">
+      <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let outerwear of filterOuterwear(closet)">
+          <mat-card class="mat-elevation-z0">
+            <img mat-card-image src="/assets/clothing/Outerwear/{{outerwear.fileName}}.png"
+              [ngStyle]="{'background-color': outerwear.colorHex}">
+            <mat-card-content>
+              <h1>{{outerwear.colorName}} {{outerwear.displayName}}</h1>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-icon-button matTooltip="Delete item" (click)="deleteClothing(outerwear)">
+                <mat-icon>
+                  delete
+                </mat-icon>
+              </button>
+              <button mat-icon-button matTooltip="Change color" [matMenuTriggerFor]="colorMenu">
+                <mat-icon>
+                  palette
+                </mat-icon>
+              </button>
+              <mat-menu #colorMenu="matMenu">
+                <div class="colorMenuWrapper" fxLayout="row wrap" fxLayoutGap="12px grid">
+                  <div fxFlex="33%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let color of colors">
+                    <div class="colors" [ngStyle]="{'background-color': color.hex}" (click)="updateClothingColor(outerwear,color)">
+                      <div class="colorNames">
+                        {{color.displayName}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-menu>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+  <mat-tab label="Footwear">
+    <div class="content">
+      <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let footwear of filterFootwear(closet)">
+          <mat-card class="mat-elevation-z0">
+            <img mat-card-image src="/assets/clothing/Footwear/{{footwear.fileName}}.png"
+              [ngStyle]="{'background-color': footwear.colorHex}">
+            <mat-card-content>
+              <h1>{{footwear.colorName}} {{footwear.displayName}}</h1>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-icon-button matTooltip="Delete item" (click)="deleteClothing(footwear)">
+                <mat-icon>
+                  delete
+                </mat-icon>
+              </button>
+              <button mat-icon-button matTooltip="Change color" [matMenuTriggerFor]="colorMenu">
+                <mat-icon>
+                  palette
+                </mat-icon>
+              </button>
+              <mat-menu #colorMenu="matMenu">
+                <div class="colorMenuWrapper" fxLayout="row wrap" fxLayoutGap="12px grid">
+                  <div fxFlex="33%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let color of colors">
+                    <div class="colors" [ngStyle]="{'background-color': color.hex}" (click)="updateClothingColor(footwear,color)">
+                      <div class="colorNames">
+                        {{color.displayName}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-menu>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
 </mat-tab-group>
 
 <body class="emptyCloset" *ngIf="closet.length < 1">

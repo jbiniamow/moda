@@ -1,6 +1,28 @@
-<app-app-bar *ngIf="router.url != '/login'"></app-app-bar>
-<div id="content">
-  <app-sidenav *ngIf="router.url != '/login'"></app-sidenav>
-  <app-bottom-nav *ngIf="router.url != '/login'"></app-bottom-nav>
-  <router-outlet></router-outlet>
-</div>
+<mat-sidenav-container>
+  <app-app-bar *ngIf="router.url != '/login'" [inputSideNav]="panel"></app-app-bar>
+  <div id="content">
+    <app-sidenav *ngIf="router.url != '/login'"></app-sidenav>
+    <app-bottom-nav *ngIf="router.url != '/login'"></app-bottom-nav>
+    <router-outlet></router-outlet>
+  </div>
+  <mat-sidenav #panel position="end">
+    <div class="filterContent">
+      <h1>
+        <button mat-icon-button>
+          <mat-icon (click)="panel.toggle()">
+            chevron_right
+          </mat-icon>
+        </button>
+        Filter your closet
+      </h1>
+      <h2>Color</h2>
+      <mat-chip-list multiple [(ngModel)]="selectedColors">
+        <mat-chip *ngFor="let color of colors" selectable="true" [selected]="isSelected(color)" (click)="toggleColor(color)">
+          <mat-icon>{{isSelected(color) ? "check" : ""}}</mat-icon>
+          {{color.colorName}}
+        </mat-chip>
+      </mat-chip-list>
+      <!-- <h2>Season</h2> -->
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

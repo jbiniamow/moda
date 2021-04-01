@@ -13,3 +13,23 @@
     display: none;
   }
 }
+
+.filterContent {
+  margin: 24px;
+}
+
+mat-sidenav-container {
+  height: 100vh;
+}
+
+@media only screen and (max-width: 808px) {
+  mat-sidenav {
+    width: 75%;
+  }
+}
+
+@media only screen and (min-width: 809px) {
+  mat-sidenav {
+    width: 25%;
+  }
+}

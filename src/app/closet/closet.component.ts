@@ -8,6 +8,8 @@ import {
   MatSnackBarVerticalPosition 
 } from '@angular/material/snack-bar';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatStepper } from '@angular/material/stepper';
+import { FilterService } from '../Services/filter.service';
 
 export interface DialogData {
   category: string;
@@ -30,8 +32,25 @@ export class ClosetComponent implements OnInit {
   category: string;
   type: string;
   color: string;
+  updatedColor: any = {};
+  filterColors: any[] = [];
+  colors = [
+    {displayName: 'Navy', hex: '#000080'},
+    {displayName: 'Burgundy', hex: '#800020'},
+    {displayName: 'Green', hex: '#4B5320'},
+    {displayName: 'Red', hex: '#F9313C'},
+    {displayName: 'Gray', hex: '#808080'},
+    {displayName: 'Brown', hex: '#654321'},
+    {displayName: 'Soft Pink', hex: '#FFB6C1'},
+    {displayName: 'Orange', hex: '#FE9F42'},
+    {displayName: 'Beige', hex: '#F5F5DC'},
+    {displayName: 'Yellow', hex: '#F6E255'},
+    {displayName: 'Light Blue', hex: '#ADD8E6'},
+    {displayName: 'Black', hex: '#1d1d1d'},
+    {displayName: 'White', hex: '#FFFFFF'},
+  ];
   
-   constructor(public clothingService: ClothingService, private _snackBar: MatSnackBar, public dialog: MatDialog) { 
+   constructor(public clothingService: ClothingService, private _snackBar: MatSnackBar, public dialog: MatDialog, public filterService: FilterService) { 
      this.clothingSubscription = new Subscription;
     this.breakpoint = 0;
     this.closet = [];
@@ -51,6 +70,9 @@ export class ClosetComponent implements OnInit {
         }
       })
     });
+    this.filterService.selectedColors.subscribe((input) => {
+      this.filterColors = input;
+    })
   }
 
   ngOnDestroy() {
@@ -78,24 +100,44 @@ export class ClosetComponent implements OnInit {
     });
   }
 
-  deleteClothing = (top: any) => {
-    this.clothingService.deleteClothing(top);
-    this.openSnackBar(top.type + ' deleted!');
+  updateClothingColor = (clothing: any,chosenColor: any) => {
+    this.updatedColor = chosenColor;
+    this.clothingService.updateClothing(clothing, chosenColor);
+    this.openSnackBar(clothing.colorName + ' ' + clothing.displayName + ' updated!');
+    console.log(this.updatedColor);
+  }
+
+  deleteClothing = (clothing: any) => {
+    this.clothingService.deleteClothing(clothing);
+    this.openSnackBar(clothing.colorName + ' ' + clothing.displayName + ' deleted!');
   }
 
   filterTops(closet:any): any[] {
-    return closet.filter((i: any) => i.category === 'tops');
+    if (this.filterColors.length === 0) {
+      return closet.filter((i: any) => i.category === 'tops');
+    }
+    return closet.filter((item:any) => item.category === 'tops' && this.filterColors.some(f => f.colorName == item.colorName));
   }
 
   filterBottoms(closet:any): any[] {
-    return closet.filter((i: any) => i.category === 'bottoms');
+    if (this.filterColors.length === 0) {
+      return closet.filter((i: any) => i.category === 'bottoms');
+    }
+    return closet.filter((item:any) => item.category === 'bottoms' && this.filterColors.some(f => f.colorName == item.colorName));
   }
 
-  addClothing = () => {
-    // this.clothing = { category: 'tops', type: 't-shirt', color: '#D8CE40'};
-    // this.openSnackBar(this.clothing.type + ' added!');
-    // this.clothingService.createClothing(this.clothing);
-    console.log("add clothes");
+  filterOuterwear(closet:any): any[] {
+    if (this.filterColors.length === 0) {
+      return closet.filter((i: any) => i.category === 'outerwear');
+    }
+    return closet.filter((item:any) => item.category === 'outerwear' && this.filterColors.some(f => f.colorName == item.colorName));
+  }
+
+  filterFootwear(closet:any): any[] {
+    if (this.filterColors.length === 0) {
+      return closet.filter((i: any) => i.category === 'footwear');
+    }
+    return closet.filter((item:any) => item.category === 'footwear' && this.filterColors.some(f => f.colorName == item.colorName));
   }
 
   FabOptions = {
@@ -147,6 +189,8 @@ export class ClosetComponent implements OnInit {
     }
   }
 
+
+
 }
 
 @Component({
@@ -155,60 +199,102 @@ export class ClosetComponent implements OnInit {
   styleUrls: ['./closet.component.scss'],
 })
 export class ClosetAddDialog{
-  selectedItem = 'baseball-tshirt';
-  chosenColor: string;
+  selectedItem: any = {};
+  chosenColor: any = {};
+  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   topImages = 
   [
-    {path: '../../assets/clothing/Tops/baseball-tshirt.png', displayName: 'Baseball Tee', fileName: 'baseball-tshirt'},
-    {path: '../../assets/clothing/Tops/button-up.png', displayName: 'Button-up Shirt', fileName: 'button-up'},
-    {path: '../../assets/clothing/Tops/collared-tshirt.png', displayName: 'Collard Tee', fileName: 'collared-tshirt'},
-    {path: '../../assets/clothing/Tops/graphic-tshirt.png', displayName: 'Graphic Tee', fileName: 'graphic-tshirt'},
-    {path: '../../assets/clothing/Tops/long-sleeve-polo.png', displayName: 'Long Sleeve Polo', fileName: 'long-sleeve-polo'},
-    {path: '../../assets/clothing/Tops/long-sleeve-tshirt.png', displayName: 'Long Sleeve Tee', fileName: 'long-sleeve-tshirt'},
-    {path: '../../assets/clothing/Tops/patterned-shirt.png', displayName: 'Patterned Shirt', fileName: 'patterned-shirt'},
-    {path: '../../assets/clothing/Tops/polo.png', displayName: 'Polo', fileName: 'polo'},
-    {path: '../../assets/clothing/Tops/sweater.png', displayName: 'Sweater', fileName: 'sweater'},
-    {path: '../../assets/clothing/Tops/t-shirt.png', displayName: 'Tee', fileName: 't-shirt'},
-    {path: '../../assets/clothing/Tops/tank-top.png', displayName: 'Tank Top', fileName: 'tank-top'},
+    {path: '../../assets/clothing/Tops/baseball-tshirt.png', displayName: 'Baseball Tee', fileName: 'baseball-tshirt', category: 'tops', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Tops/button-up.png', displayName: 'Button-up Shirt', fileName: 'button-up', category: 'tops', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Tops/collared-tshirt.png', displayName: 'Collard Tee', fileName: 'collared-tshirt', category: 'tops', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Tops/graphic-tshirt.png', displayName: 'Graphic Tee', fileName: 'graphic-tshirt', category: 'tops', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Tops/long-sleeve-polo.png', displayName: 'Long Sleeve Polo', fileName: 'long-sleeve-polo', category: 'tops', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Tops/long-sleeve-tshirt.png', displayName: 'Long Sleeve Tee', fileName: 'long-sleeve-tshirt', category: 'tops', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Tops/patterned-shirt.png', displayName: 'Patterned Shirt', fileName: 'patterned-shirt', category: 'tops', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Tops/polo.png', displayName: 'Polo', fileName: 'polo', category: 'tops', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Tops/sweater.png', displayName: 'Sweater', fileName: 'sweater', category: 'tops', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Tops/t-shirt.png', displayName: 'Tee', fileName: 't-shirt', category: 'tops', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Tops/tank-top.png', displayName: 'Tank Top', fileName: 'tank-top', category: 'tops', colorHex: '', colorName: ''},
   ];
 
   bottomImages = [
-    {path: '../../assets/clothing/Bottoms/cargo-pants.png', displayName: 'Cargo Pants', fileName: 'cargo-pants'},
-    {path: '../../assets/clothing/Bottoms/jeans.png', displayName: 'Jeans', fileName: 'jeans'},
-    {path: '../../assets/clothing/Bottoms/joggers.png', displayName: 'Joggers', fileName: 'joggers'},
-    {path: '../../assets/clothing/Bottoms/pants.png', displayName: 'Pants', fileName: 'pants'},
-    {path: '../../assets/clothing/Bottoms/shorts.png', displayName: 'Shorts', fileName: 'shorts'},
-    {path: '../../assets/clothing/Bottoms/track-shorts.png', displayName: 'Track Shorts', fileName: 'track-shorts'},
+    {path: '../../assets/clothing/Bottoms/cargo-pants.png', displayName: 'Cargo Pants', fileName: 'cargo-pants', category: 'bottoms', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Bottoms/jeans.png', displayName: 'Jeans', fileName: 'jeans', category: 'bottoms', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Bottoms/joggers.png', displayName: 'Joggers', fileName: 'joggers', category: 'bottoms', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Bottoms/pants.png', displayName: 'Pants', fileName: 'pants', category: 'bottoms', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Bottoms/shorts.png', displayName: 'Shorts', fileName: 'shorts', category: 'bottoms', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Bottoms/track-shorts.png', displayName: 'Track Shorts', fileName: 'track-shorts', category: 'bottoms', colorHex: '', colorName: ''},
   ];
 
   outerwearImages = [
-    {path: '../../assets/clothing/Outerwear/bomber-jacket.png', displayName: 'Bomber Jacket', fileName: 'bomber-jacket'},
-    {path: '../../assets/clothing/Outerwear/denim-jacket.png', displayName: 'Denim Jacket', fileName: 'denim-jacket'},
-    {path: '../../assets/clothing/Outerwear/harrington-jacket.png', displayName: 'Harrington Jacket', fileName: 'harrington-jacket'},
-    {path: '../../assets/clothing/Outerwear/hoodie.png', displayName: 'Hoodie', fileName: 'hoodie'},
-    {path: '../../assets/clothing/Outerwear/leather-jacket.png', displayName: 'Leather Jacket', fileName: 'leather-jacket'},
-    {path: '../../assets/clothing/Outerwear/parka.png', displayName: 'Parka', fileName: 'parka'},
-    {path: '../../assets/clothing/Outerwear/pea-coat.png', displayName: 'Pea Coat', fileName: 'pea-coat'},
-    {path: '../../assets/clothing/Outerwear/rain-jacket.png', displayName: 'Rain Jacket', fileName: 'rain-jacket'},
-    {path: '../../assets/clothing/Outerwear/track-jacket.png', displayName: 'Track Jacket', fileName: 'track-jacket'},
-    {path: '../../assets/clothing/Outerwear/trench-coat.png', displayName: 'Trench', fileName: 'trench-coat'},
-    {path: '../../assets/clothing/Outerwear/varsity-jacket.png', displayName: 'Varsity Jacket', fileName: 'varsity-jacket'},
+    {path: '../../assets/clothing/Outerwear/bomber-jacket.png', displayName: 'Bomber Jacket', fileName: 'bomber-jacket', category: 'outerwear', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Outerwear/denim-jacket.png', displayName: 'Denim Jacket', fileName: 'denim-jacket', category: 'outerwear', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Outerwear/harrington-jacket.png', displayName: 'Harrington Jacket', fileName: 'harrington-jacket', category: 'outerwear', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Outerwear/hoodie.png', displayName: 'Hoodie', fileName: 'hoodie', category: 'outerwear', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Outerwear/leather-jacket.png', displayName: 'Leather Jacket', fileName: 'leather-jacket', category: 'outerwear', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Outerwear/parka.png', displayName: 'Parka', fileName: 'parka', category: 'outerwear', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Outerwear/pea-coat.png', displayName: 'Pea Coat', fileName: 'pea-coat', category: 'outerwear', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Outerwear/rain-jacket.png', displayName: 'Rain Jacket', fileName: 'rain-jacket', category: 'outerwear', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Outerwear/track-jacket.png', displayName: 'Track Jacket', fileName: 'track-jacket', category: 'outerwear', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Outerwear/trench-coat.png', displayName: 'Trench Coat', fileName: 'trench-coat', category: 'outerwear', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Outerwear/varsity-jacket.png', displayName: 'Varsity Jacket', fileName: 'varsity-jacket', category: 'outerwear', colorHex: '', colorName: ''},
   ];
 
   footwearImages = [
-    {path: '../../assets/clothing/Footwear/combat-boots.png', displayName: 'Combat Boots', fileName: 'combat-boots'},
-    {path: '../../assets/clothing/Footwear/cowboy-boots.png', displayName: 'Cowboy Boots', fileName: 'cowboy-boots'},
-    {path: '../../assets/clothing/Footwear/flip-flops.png', displayName: 'Flip Flops', fileName: 'flip-flops'},
-    {path: '../../assets/clothing/Footwear/low-top-canvas-sneakers.png', displayName: 'Low Top Canvas Sneakers', fileName: 'low-top-canvas-sneakers'},
-    {path: '../../assets/clothing/Footwear/oxford-shoes.png', displayName: 'Oxford Shoes', fileName: 'oxford-shoes'},
-    {path: '../../assets/clothing/Footwear/slippers.png', displayName: 'Slippers', fileName: 'slippers'},
+    {path: '../../assets/clothing/Footwear/combat-boots.png', displayName: 'Combat Boots', fileName: 'combat-boots', category: 'footwear', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Footwear/cowboy-boots.png', displayName: 'Cowboy Boots', fileName: 'cowboy-boots', category: 'footwear', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Footwear/flip-flops.png', displayName: 'Flip Flops', fileName: 'flip-flops', category: 'footwear', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Footwear/low-top-canvas-sneakers.png', displayName: 'Low Top Canvas Sneakers', fileName: 'low-top-canvas-sneakers', category: 'footwear', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Footwear/oxford-shoes.png', displayName: 'Oxford Shoes', fileName: 'oxford-shoes', category: 'footwear', colorHex: '', colorName: ''},
+    {path: '../../assets/clothing/Footwear/slippers.png', displayName: 'Slippers', fileName: 'slippers', category: 'footwear', colorHex: '', colorName: ''},
+  ];
+  colors = [
+    {displayName: 'Navy', hex: '#000080'},
+    {displayName: 'Burgundy', hex: '#800020'},
+    {displayName: 'Green', hex: '#4B5320'},
+    {displayName: 'Red', hex: '#F9313C'},
+    {displayName: 'Gray', hex: '#808080'},
+    {displayName: 'Brown', hex: '#654321'},
+    {displayName: 'Soft Pink', hex: '#FFB6C1'},
+    {displayName: 'Orange', hex: '#FE9F42'},
+    {displayName: 'Beige', hex: '#F5F5DC'},
+    {displayName: 'Yellow', hex: '#F6E255'},
+    {displayName: 'Light Blue', hex: '#ADD8E6'},
+    {displayName: 'Black', hex: '#1d1d1d'},
+    {displayName: 'White', hex: '#FFFFFF'},
   ];
 
   constructor(
-    public dialogRef: MatDialogRef<ClosetAddDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
-      this.chosenColor = '';
-    }
+  public dialogRef: MatDialogRef<ClosetAddDialog>,
+  @Inject(MAT_DIALOG_DATA) public data: DialogData, private _snackBar: MatSnackBar, public clothingService: ClothingService) {
+  }
+
+  selectItem(clothing: any, stepper: MatStepper) {
+    this.chosenColor = {};
+    this.selectedItem = clothing;
+    stepper.next();
+  }
+
+  chooseColor(color: any) {
+    this.chosenColor = color;
+    this.selectedItem.colorHex = this.chosenColor.hex;
+    this.selectedItem.colorName = this.chosenColor.displayName;
+    console.log(this.selectedItem);
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, 'Dismiss', {
+      duration: 2500,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
+  }
+
+  addClothing = () => {
+    this.openSnackBar(this.selectedItem.displayName + ' added!');
+    this.clothingService.createClothing(this.selectedItem);
+  }
   
   onNoClick(): void {
     this.dialogRef.close();

@@ -1,7 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import firebase from 'firebase';
 import { AuthenticationService } from '../Services/authentication.service';
 import {MatDialog} from '@angular/material/dialog';
+import { FilterService } from '../Services/filter.service';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-app-bar',
@@ -10,10 +12,10 @@ import {MatDialog} from '@angular/material/dialog';
 })
 export class AppBarComponent implements OnInit {
   username: any;
-  toggleSearch: boolean = false;
+  filterVisible: boolean = false;
   searchText: string = '';
-  constructor(public authService: AuthenticationService, public dialog: MatDialog) {
-   }
+  @Input() inputSideNav!: MatSidenav;
+  constructor(public authService: AuthenticationService, public dialog: MatDialog, public filterService: FilterService) {}
 
   ngOnInit(): void {
   }
@@ -24,11 +26,6 @@ export class AppBarComponent implements OnInit {
 
   getUserAdditionalData = (user: firebase.User) => {
     this.username = user.displayName;
-  }
-
-  clearSearch() {
-    this.toggleSearch = false;
-    this.searchText = '';
   }
 
 }

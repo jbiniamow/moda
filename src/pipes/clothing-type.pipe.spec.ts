@@ -1,4 +1,4 @@
-import { ClothingTypePipe } from '../pipes/clothing-type.pipe';
+import { ClothingTypePipe } from './clothing-type.pipe';
 
 describe('ClothingTypePipe', () => {
   it('create an instance', () => {

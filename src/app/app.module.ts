@@ -54,12 +54,13 @@ import {AppBarAboutDialog} from './app-bar/app-bar.component';
     SpeedDialFabComponent,
     ClothingTypePipe,
     AppBarAboutDialog,
-    ClosetAddDialog
+    ClosetAddDialog,
   ],
   imports: [
-    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
 
     BrowserModule,
     AppRoutingModule,
