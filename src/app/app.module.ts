@@ -22,6 +22,7 @@ import {MatInputModule} from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatStepperModule} from '@angular/material/stepper';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 import { AppBarComponent } from './app-bar/app-bar.component';
 import { HomeComponent } from './home/home.component';
@@ -83,7 +84,8 @@ import {AppBarAboutDialog} from './app-bar/app-bar.component';
     MatInputModule,
     FormsModule,
     MatDialogModule,
-    MatStepperModule
+    MatStepperModule,
+    ScrollingModule
   ],
   exports: [AngularFireModule, AngularFireAuthModule],
   providers: [AuthenticationService],

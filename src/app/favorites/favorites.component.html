@@ -1,4 +1,4 @@
-<!-- <div>
+<div *ngIf="favorites.length < 1">
   <body class="emptyFavorites">
     <section class="header">
       <img class="emptyFavoritesImage" src="/assets/undraw_loving_story_0j59.svg">
@@ -6,39 +6,28 @@
       <h3>Start favoriting outfits</h3>
     </section>
   </body>
-</div> -->
+</div>
 
-<div class="content">
-  <div fxLayout="row wrap" fxLayoutGap="16px grid">
-    <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let combo of combinations">
-      <mat-card>
-        <div class="container">
-          <div class="image">
-            <img [src]="combo.top">
+<cdk-virtual-scroll-viewport itemSize="50">
+  <div class="content">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *cdkVirtualFor="let favorite of favorites; let i = index">
+        <mat-card>
+          <div class="container">
+            <div class="image" *ngFor="let fav of favorite.favoritedOutfit">
+              <img [src]="fav.path" [ngStyle]="{'background-color': fav.colorHex}">
+              <div style="text-align: center;">{{fav.colorName}} {{fav.displayName}}</div>
+            </div>
           </div>
-          <div class="image">
-            <img [src]="combo.outerwear">
-          </div>
-          <div class="image">
-            <img [src]="combo.bottom">
-          </div>
-          <div class="image">
-            <img [src]="combo.footwear">
-          </div>
-        </div>
-        <mat-card-actions>
-          <button mat-icon-button matTooltip="Delete outfit">
-            <mat-icon>
-              delete
-            </mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Favorite outfit">
-            <mat-icon style="color: red ;">
-              favorite
-            </mat-icon>
-          </button>
-        </mat-card-actions>
-      </mat-card>
+          <mat-card-actions>
+            <button mat-icon-button matTooltip="Delete from favorites" (click)="deleteFavorite(favorite)">
+              <mat-icon>
+                delete
+              </mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
     </div>
   </div>
-</div>
+  </cdk-virtual-scroll-viewport>

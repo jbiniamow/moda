@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { 
+  MatSnackBar, 
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition 
+} from '@angular/material/snack-bar';import { Subscription } from 'rxjs';
+import { ClothingService } from '../Services/clothing.service';
 
 @Component({
   selector: 'app-favorites',
@@ -6,13 +12,45 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./favorites.component.scss']
 })
 export class FavoritesComponent implements OnInit {
+  favoritesSubscription: Subscription;
+  favorites: any[] = [];
+  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(public clothingService: ClothingService, private _snackbar: MatSnackBar) { 
+    this.favoritesSubscription = new Subscription;
   }
 
-  combinations = [
-    {top: '../../assets/clothing/Tops/t-shirt.png', bottom: '../../assets/clothing/Bottoms/pants.png', outerwear: '../../assets/clothing/Outerwear/hoodie.png', footwear:'../../assets/clothing/Footwear/low-top-canvas-sneakers.png'},
-  ]
+  public ngOnInit(): void {
+    this.favoritesSubscription = this.clothingService.getFavorites().subscribe(data => {
+      this.favorites = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        }
+      })
+    });
+  }
+
+  ngOnDestroy() {
+    this.favoritesSubscription.unsubscribe();
+  }
+  openSnackBar(message: string) {
+    this._snackbar.open(message, 'Dismiss', {
+      duration: 2500,
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+    });
+  }
+
+  deleteFavorite = (favorite: any) => {
+    this.clothingService.deleteFavorite(favorite);
+    this.openSnackBar('Outfit deleted!');
+  }
+
+  checkInfo() {
+    console.log(this.favorites);
+  }
+
+
 }

@@ -1,32 +1,25 @@
-<!-- <div>
+<div *ngIf="combinations.length < 1">
   <body class="emptyHome">
     <section class="header">
       <img class="emptyHomeImage" src="/assets/undraw_web_shopping_dd4l.svg">
       <h2>There's nothing here!</h2>
-      <h3>Add items to your closet to generate outfits</h3>
+      <h3>Add items from each category to your closet to generate outfits</h3>
       <button class="closetButton" mat-raised-button onclick="location.href='/#closet'">
           GO TO CLOSET
       </button>
     </section>
   </body>
-</div> -->
+</div>
 
+<cdk-virtual-scroll-viewport itemSize="50">
 <div class="content">
   <div fxLayout="row wrap" fxLayoutGap="16px grid">
-    <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let combo of combinations">
+      <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *cdkVirtualFor="let combo of combinations; let i = index">
       <mat-card>
         <div class="container">
-          <div class="image">
-            <img [src]="combo.top">
-          </div>
-          <div class="image">
-            <img [src]="combo.outerwear">
-          </div>
-          <div class="image">
-            <img [src]="combo.bottom">
-          </div>
-          <div class="image">
-            <img [src]="combo.footwear">
+          <div class="image" *ngFor="let comb of combo">
+            <img [src]="comb.path" [ngStyle]="{'background-color': comb.colorHex}">
+            <div style="text-align: center;">{{comb.colorName}} {{comb.displayName}}</div>
           </div>
         </div>
         <mat-card-actions>
@@ -35,7 +28,7 @@
               clear
             </mat-icon>
           </button>
-          <button mat-icon-button matTooltip="Favorite outfit">
+          <button mat-icon-button matTooltip="Favorite outfit" (click)="favoriteOutfit(combo)">
             <mat-icon>
               favorite_border
             </mat-icon>
@@ -45,3 +38,4 @@
     </div>
   </div>
 </div>
+</cdk-virtual-scroll-viewport>

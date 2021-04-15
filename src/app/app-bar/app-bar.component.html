@@ -21,12 +21,12 @@
 
   <span class="spacer"></span>
   <!-- <button mat-icon-button (click)="toggleFilter()"> -->
-  <button mat-icon-button (click)="inputSideNav.toggle()">
+  <button mat-icon-button (click)="inputSideNav.toggle()" matTooltip="Filter">
     <mat-icon>
       filter_list
     </mat-icon>
   </button>
-  <button mat-button [matMenuTriggerFor]="menu">
+  <button mat-button [matMenuTriggerFor]="menu" matTooltip="Profile">
     <img class="profilePic" src="{{user.photoURL}}" alt="">
   </button>
   <mat-menu #menu="matMenu">

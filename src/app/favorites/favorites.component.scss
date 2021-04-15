@@ -35,3 +35,7 @@ mat-card {
   width: calc(100% - (20px * 2));
   margin: 20px;
 }
+
+cdk-virtual-scroll-viewport {
+  height: 100vh;
+}
