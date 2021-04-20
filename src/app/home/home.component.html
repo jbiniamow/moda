@@ -10,11 +10,12 @@
     </section>
   </body>
 </div>
-
+<!-- <button (click)="closetF()">BLAh</button> -->
+<!-- <input type="text" [value]="searchTextValue" placeholder="Not a child component"/> -->
 <cdk-virtual-scroll-viewport itemSize="50">
 <div class="content">
   <div fxLayout="row wrap" fxLayoutGap="16px grid">
-      <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *cdkVirtualFor="let combo of combinations; let i = index">
+      <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *cdkVirtualFor="let combo of filterOutfits(combinations); let i = index">
       <mat-card>
         <div class="container">
           <div class="image" *ngFor="let comb of combo">
@@ -22,12 +23,12 @@
             <div style="text-align: center;">{{comb.colorName}} {{comb.displayName}}</div>
           </div>
         </div>
-        <mat-card-actions>
-          <button mat-icon-button matTooltip="Dismiss outfit">
+        <mat-card-actions align="end">
+          <!-- <button mat-icon-button matTooltip="Dismiss outfit">
             <mat-icon>
               clear
             </mat-icon>
-          </button>
+          </button> -->
           <button mat-icon-button matTooltip="Favorite outfit" (click)="favoriteOutfit(combo)">
             <mat-icon>
               favorite_border

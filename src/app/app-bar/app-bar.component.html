@@ -10,10 +10,7 @@
       <button mat-icon-button type="button" matTooltip="Search">
         <mat-icon>search</mat-icon>
       </button>
-        <input class="searchInput" type="text" placeholder="Search" (click)="toggleFilter()" [(ngModel)]="searchText" name="search">
-        <button mat-icon-button class="clearButton" type="button" *ngIf="filterVisible" (click)="clearSearch()" matTooltip="Clear search">
-          <mat-icon>clear</mat-icon>
-        </button>
+        <input class="searchInput" type="text" placeholder="Search" (click)="toggleFilter()" (input)="onInput($event)" [(ngModel)]="searchText" name="search">
     </form>
   </div> -->
 
@@ -33,10 +30,6 @@
     <span><b>{{user.displayName}}</b></span>
     <span>{{user.email}}</span>
     <mat-divider></mat-divider>
-    <button mat-menu-item>
-      <mat-icon>help</mat-icon>
-      Help
-    </button>
     <button mat-menu-item (click)="openAboutDialog()">
       <mat-icon>info</mat-icon>
       About

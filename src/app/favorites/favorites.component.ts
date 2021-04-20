@@ -3,7 +3,8 @@ import {
   MatSnackBar, 
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition 
-} from '@angular/material/snack-bar';import { Subscription } from 'rxjs';
+} from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 import { ClothingService } from '../Services/clothing.service';
 
 @Component({
@@ -45,7 +46,7 @@ export class FavoritesComponent implements OnInit {
 
   deleteFavorite = (favorite: any) => {
     this.clothingService.deleteFavorite(favorite);
-    this.openSnackBar('Outfit deleted!');
+    this.openSnackBar('🗑 Outfit deleted!');
   }
 
   checkInfo() {

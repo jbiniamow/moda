@@ -13,7 +13,7 @@
             chevron_right
           </mat-icon>
         </button>
-        Filter your closet
+        Filters
       </h1>
       <h2>Color</h2>
       <mat-chip-list multiple [(ngModel)]="selectedColors">
@@ -22,7 +22,62 @@
           {{color.colorName}}
         </mat-chip>
       </mat-chip-list>
-      <!-- <h2>Season</h2> -->
+      <mat-divider class="divider"></mat-divider>
+      <h2>Clothing type</h2>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Tops
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-list multiple [(ngModel)]="selectedClothing">
+            <mat-chip *ngFor="let top of tops" selectable="true" [selected]="isSelectedClothing(top)" (click)="toggleClothing(top)">
+              <mat-icon>{{isSelectedClothing(top) ? "check" : ""}}</mat-icon>
+              {{top.displayName}}
+            </mat-chip>
+          </mat-chip-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Bottoms
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-list multiple [(ngModel)]="selectedClothing">
+            <mat-chip *ngFor="let bottom of bottoms" selectable="true" [selected]="isSelectedClothing(bottom)" (click)="toggleClothing(bottom)">
+              <mat-icon>{{isSelectedClothing(bottom) ? "check" : ""}}</mat-icon>
+              {{bottom.displayName}}
+            </mat-chip>
+          </mat-chip-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Outerwear
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-list multiple [(ngModel)]="selectedClothing">
+            <mat-chip *ngFor="let out of outerwear" selectable="true" [selected]="isSelectedClothing(out)" (click)="toggleClothing(out)">
+              <mat-icon>{{isSelectedClothing(out) ? "check" : ""}}</mat-icon>
+              {{out.displayName}}
+            </mat-chip>
+          </mat-chip-list>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Footwear
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-chip-list multiple [(ngModel)]="selectedClothing">
+            <mat-chip *ngFor="let foot of footwear" selectable="true" [selected]="isSelectedClothing(foot)" (click)="toggleClothing(foot)">
+              <mat-icon>{{isSelectedClothing(foot) ? "check" : ""}}</mat-icon>
+              {{foot.displayName}}
+            </mat-chip>
+          </mat-chip-list>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
   </mat-sidenav>
 </mat-sidenav-container>

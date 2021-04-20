@@ -7,7 +7,7 @@
     </section>
   </body>
 </div>
-
+<!-- <button (click)="checkInfo()">d</button> -->
 <cdk-virtual-scroll-viewport itemSize="50">
   <div class="content">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
@@ -19,7 +19,7 @@
               <div style="text-align: center;">{{fav.colorName}} {{fav.displayName}}</div>
             </div>
           </div>
-          <mat-card-actions>
+          <mat-card-actions align="end">
             <button mat-icon-button matTooltip="Delete from favorites" (click)="deleteFavorite(favorite)">
               <mat-icon>
                 delete

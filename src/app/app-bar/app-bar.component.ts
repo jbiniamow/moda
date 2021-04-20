@@ -28,6 +28,20 @@ export class AppBarComponent implements OnInit {
     this.username = user.displayName;
   }
 
+  toggleFilter() {
+    this.filterVisible = true;
+  }
+
+  clearSearch() {
+    this.filterVisible = false;
+    this.searchText = '';
+  }
+
+  onInput(a_oEvent: any): void {
+    this.searchText = a_oEvent.currentTarget.value;
+    this.filterService.input = a_oEvent.currentTarget.value;
+  }
+
 }
 
 @Component({
