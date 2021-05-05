@@ -2,7 +2,7 @@
   <mat-tab label="Tops">
     <div class="content">
       <div fxLayout="row wrap" fxLayoutGap="16px grid">
-        <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let top of filterTops(closet)">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let top of filterTops(closet)">
           <mat-card class="mat-elevation-z0">
             <img mat-card-image src="/assets/clothing/Tops/{{top.fileName}}.png"
               [ngStyle]="{'background-color': top.colorHex}">
@@ -40,7 +40,7 @@
   <mat-tab label="Bottoms">
     <div class="content">
       <div fxLayout="row wrap" fxLayoutGap="16px grid">
-        <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let bottom of filterBottoms(closet)">
+        <div ffxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let bottom of filterBottoms(closet)">
           <mat-card class="mat-elevation-z0">
             <img mat-card-image src="/assets/clothing/Bottoms/{{bottom.fileName}}.png"
               [ngStyle]="{'background-color': bottom.colorHex}">
@@ -78,7 +78,7 @@
   <mat-tab label="Outerwear">
     <div class="content">
       <div fxLayout="row wrap" fxLayoutGap="16px grid">
-        <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let outerwear of filterOuterwear(closet)">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let outerwear of filterOuterwear(closet)">
           <mat-card class="mat-elevation-z0">
             <img mat-card-image src="/assets/clothing/Outerwear/{{outerwear.fileName}}.png"
               [ngStyle]="{'background-color': outerwear.colorHex}">
@@ -116,7 +116,7 @@
   <mat-tab label="Footwear">
     <div class="content">
       <div fxLayout="row wrap" fxLayoutGap="16px grid">
-        <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *ngFor="let footwear of filterFootwear(closet)">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let footwear of filterFootwear(closet)">
           <mat-card class="mat-elevation-z0">
             <img mat-card-image src="/assets/clothing/Footwear/{{footwear.fileName}}.png"
               [ngStyle]="{'background-color': footwear.colorHex}">

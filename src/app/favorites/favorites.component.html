@@ -11,7 +11,7 @@
 <cdk-virtual-scroll-viewport itemSize="50">
   <div class="content">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
-        <div fxFlex="25%" fxFlex.xs="50%" fxFlex.sm="33%" *cdkVirtualFor="let favorite of favorites; let i = index">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *cdkVirtualFor="let favorite of favorites; let i = index">
         <mat-card>
           <div class="container">
             <div class="image" *ngFor="let fav of favorite.favoritedOutfit">

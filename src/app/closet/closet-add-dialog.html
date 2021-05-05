@@ -7,7 +7,7 @@
       </ng-template>
       <div class="content" *ngIf="data.category === 'Tops'">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
-          <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let tops of topImages" fxLayoutAlign="stretch">
+          <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let tops of topImages" fxLayoutAlign="stretch">
             <mat-card class="dialogCard" (click)="selectItem(tops, stepper)">
               <img mat-card-image [src]="tops.path">
               <mat-card-content>
@@ -19,7 +19,7 @@
       </div>
       <div class="content" *ngIf="data.category === 'Bottoms'">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
-          <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let bottoms of bottomImages"
+          <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let bottoms of bottomImages"
             fxLayoutAlign="stretch">
             <mat-card class="dialogCard" (click)="selectItem(bottoms, stepper)">
               <img mat-card-image [src]="bottoms.path">
@@ -32,7 +32,7 @@
       </div>
       <div class="content" *ngIf="data.category === 'Outerwear'">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
-          <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let outerwear of outerwearImages"
+          <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let outerwear of outerwearImages"
             fxLayoutAlign="stretch">
             <mat-card class="dialogCard" (click)="selectItem(outerwear, stepper)">
               <img mat-card-image [src]="outerwear.path">
@@ -45,7 +45,7 @@
       </div>
       <div class="content" *ngIf="data.category === 'Footwear'">
         <div fxLayout="row wrap" fxLayoutGap="16px grid">
-          <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let footwear of footwearImages"
+          <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="50%" *ngFor="let footwear of footwearImages"
             fxLayoutAlign="stretch">
             <mat-card class="dialogCard" (click)="selectItem(footwear, stepper)">
               <img mat-card-image [src]="footwear.path">
